@@ -1,0 +1,36 @@
+﻿<Page x:Class="Anastasia423WPF.Pages.ServiceBookingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Title="Оформление записи">
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFFFF6CD" Offset="0"/>
+                <GradientStop Color="#FFE47979" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Border Background="#CCFFFFFF" CornerRadius="20" Margin="50" Padding="30" MaxWidth="500" VerticalAlignment="Center">
+            <StackPanel>
+                <TextBlock Text="Запись на услугу" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+
+                <TextBlock Text="Выбранная услуга:" FontSize="14" Foreground="Gray"/>
+                <TextBlock x:Name="TxtServiceName" FontSize="18" FontWeight="Bold" Margin="0,0,0,20"/>
+
+                <TextBlock Text="Выберите мастера:" Margin="0,10,0,5"/>
+                <ComboBox x:Name="ComboMasters" DisplayMemberPath="FIO" SelectedValuePath="ID" Height="35"/>
+
+                <TextBlock Text="Выберите дату:" Margin="0,15,0,5"/>
+                <DatePicker x:Name="DatePick" Height="35"/>
+
+                <TextBlock Text="Комментарий (необязательно):" Margin="0,15,0,5"/>
+                <TextBox x:Name="TxtComment" Height="60" TextWrapping="Wrap" AcceptsReturn="True"/>
+
+                <UniformGrid Columns="2" Margin="0,30,0,0">
+                    <Button Content="Отмена" Click="Cancel_Click" Height="40" Margin="5"/>
+                    <Button Content="Подтвердить" Click="ConfirmBooking_Click" Height="40" Margin="5" Background="#FF0F3E25" Foreground="White"/>
+                </UniformGrid>
+            </StackPanel>
+        </Border>
+    </Grid>
+</Page>
