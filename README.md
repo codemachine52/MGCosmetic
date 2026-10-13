@@ -7,4 +7,4 @@
 - фильтрация записей с помощью LINQ.
 
 **Стек:** C#, WPF, MS SQL, Entity Framework, LINQ · **Запуск:** выполнить SQL-скрипт в SSMS, проверить строку подключения (file `Core.cs`), открыть `.sln` → F5
-Автор: [Владислав Гуйда](https://github.com/codemachine52) · практическая работа №17
+Автор: [Владислав Гуйда](https://github.com/codemachine52), [Анастасия Мура](https://github.com/Stasyamr4)
