@@ -23,8 +23,10 @@
             <TextBox x:Name="LoginText"  Width="140" Height="30" Background="#B2FFFFFF" ToolTip="Введите логин"></TextBox>
             <TextBlock HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="20" FontWeight="Thin"  Foreground="White">Введите пароль</TextBlock>
             <PasswordBox x:Name="PassText" Width="140" Height="30" Background="#B2FFFFFF" Margin="0,15,0,0" ToolTip="Введите пароль"></PasswordBox>
+            <Button x:Name="Forgot" Width="200" Margin="0,20,0,0" Foreground="#FF802900" Background="Transparent" FontWeight="DemiBold" FontSize="16" FontFamily="Arial Black" Click="Forgot_Click">Забыли пароль?</Button>
             <TextBlock  HorizontalAlignment="Center" Margin="0,20,0,0" FontSize="18" FontWeight="Thin"  Foreground="White">Нет аккаунта?</TextBlock>
             <Button x:Name="Registr"  Width="200"  Foreground="blue" Background="Transparent" FontWeight="DemiBold" FontSize="16" FontFamily="Arial Black" Click="Registr_Click">Зарегистрируйтесь</Button>
+            
         </StackPanel>
     </Grid>
 </Page>

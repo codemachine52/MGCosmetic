@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Anastasia423WPF.Windows;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -105,6 +106,15 @@ namespace Anastasia423WPF.Pages
             {
                 MessageBox.Show("Ошибка! Пользователь не найден в базе данных!", "Не найден в базе данных", MessageBoxButton.OK, MessageBoxImage.Error);
                 return false;
+            }
+        }
+
+        private void Forgot_Click(object sender, RoutedEventArgs e)
+        {
+            var forg = new ForgotPasswordWindow();
+            if(forg.ShowDialog() == true)
+            {
+                user.Password = PasswordHelper.HashPassword(forg.NewPasswordText.Password);
             }
         }
     }

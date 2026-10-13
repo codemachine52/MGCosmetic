@@ -152,6 +152,9 @@
     <Compile Include="Windows\DictionaryEditWindow.xaml.cs">
       <DependentUpon>DictionaryEditWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Windows\ForgotPasswordWindow.xaml.cs">
+      <DependentUpon>ForgotPasswordWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\OrderDetailsWindow.xaml.cs">
       <DependentUpon>OrderDetailsWindow.xaml</DependentUpon>
     </Compile>
@@ -238,6 +241,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\DictionaryEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ForgotPasswordWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
