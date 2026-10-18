@@ -1,9 +1,9 @@
-﻿<Page x:Class="Anastasia423WPF.Pages.MasterCabinetPage"
+﻿<Page Foreground="{DynamicResource TextBrush}" x:Class="Anastasia423WPF.Pages.MasterCabinetPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       Title="Рабочее место мастера">
 
-    <Grid Background="#FFFFF6CD">
+    <Grid Background="{DynamicResource MasterBackgroundBrush}">
         <StackPanel Margin="20">
             <TextBlock Text="МОЙ ГРАФИК РАБОТЫ" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
 
@@ -11,13 +11,13 @@
                 <TextBlock Text="Тип услуги: " VerticalAlignment="Center" FontSize="14"/>
                 <ComboBox x:Name="ServiceTypeCombo" Width="250" Height="30" 
                           DisplayMemberPath="Name" SelectionChanged="ServiceTypeCombo_SelectionChanged"/>
-                <Button Content="Все" Margin="10,0,0,0" Width="60" Click="ResetFilter_Click"/>
+                <Button Style="{StaticResource ThemedButton}" Content="Все" Margin="10,0,0,0" Width="60" Click="ResetFilter_Click"/>
             </StackPanel>
 
             <ListView x:Name="MasterAptList" Margin="0,10" Background="Transparent" BorderThickness="0">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Border Background="White" CornerRadius="8" Margin="0,5" Padding="15" BorderBrush="LightBlue" BorderThickness="1">
+                        <Border Background="{DynamicResource ItemBackgroundBrush}" TextElement.Foreground="{DynamicResource TextBrush}" CornerRadius="8" Margin="0,5" Padding="15" BorderBrush="{DynamicResource ItemBorderBrush}" BorderThickness="1">
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="*"/>
@@ -25,13 +25,13 @@
                                 </Grid.ColumnDefinitions>
 
                                 <StackPanel Grid.Column="0" Margin="0,0,20,0">
-                                    <TextBlock Text="{Binding Service.Name}" FontSize="18" FontWeight="Bold" Foreground="#FF0F3E25" TextWrapping="Wrap"/>
+                                    <TextBlock Text="{Binding Service.Name}" FontSize="18" FontWeight="Bold" Foreground="{DynamicResource GreenTextBrush}" TextWrapping="Wrap"/>
                                     <TextBlock Text="{Binding AppointmentDate, StringFormat='Время приема: {0:dd.MM HH:mm}'}" FontSize="14" Margin="0,5"/>
-                                    <TextBlock Text="{Binding User.FIO, StringFormat='Клиент: {0}'}" FontSize="13" Foreground="Gray"/>
+                                    <TextBlock Text="{Binding User.FIO, StringFormat='Клиент: {0}'}" FontSize="13" Foreground="{DynamicResource MutedTextBrush}"/>
                                 </StackPanel>
 
                                 <Button Grid.Column="1" Content="ВЫПОЛНЕНО" VerticalAlignment="Center"
-                                        Padding="15,8" Background="#FF0F3E25" Foreground="White" FontWeight="Bold"
+                                        Padding="15,8" Background="{DynamicResource PrimaryButtonBrush}" Foreground="White" FontWeight="Bold"
                                         Click="Done_Click"/>
                             </Grid>
                         </Border>

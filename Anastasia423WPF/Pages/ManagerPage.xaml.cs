@@ -1,4 +1,5 @@
 ﻿using System;
+using Anastasia423WPF.Model;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -170,6 +171,7 @@ namespace Anastasia423WPF.Pages
 
         private void ExitAccButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmLogout(Window.GetWindow(this))) return;
             NavigationService.Navigate(new AuthPage(_currentUser));
         }
     }

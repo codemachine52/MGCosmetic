@@ -64,33 +64,36 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Apointment.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
     <Compile Include="Core.cs" />
     <Compile Include="Manufacturer.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
-    <Compile Include="MGCosmetic.Context.cs">
+    <Compile Include="MG_Cosmetic.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MGCosmetic.Context.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="MGCosmetic.cs">
+    <Compile Include="MG_Cosmetic.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
-    <Compile Include="MGCosmetic.Designer.cs">
+    <Compile Include="MG_Cosmetic.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MGCosmetic.edmx</DependentUpon>
+      <DependentUpon>MG_Cosmetic.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Model\ConfirmationHelper.cs" />
+    <Compile Include="Model\LoginAttemptTracker.cs" />
     <Compile Include="Model\PasswordHelper.cs" />
     <Compile Include="Model\ProductPartial.cs" />
     <Compile Include="Model\ShoppingCart.cs" />
+    <Compile Include="Model\ThemeManager.cs" />
     <Compile Include="Model\UserPartial.cs" />
     <Compile Include="Order.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
     <Compile Include="Pages\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
@@ -117,31 +120,34 @@
       <DependentUpon>ServiceCatalogPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
     <Compile Include="Product_Order.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
     <Compile Include="Role.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
     <Compile Include="Service.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
     <Compile Include="Service_Master.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
     <Compile Include="Type.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
     <Compile Include="User.cs">
-      <DependentUpon>MGCosmetic.tt</DependentUpon>
+      <DependentUpon>MG_Cosmetic.tt</DependentUpon>
     </Compile>
     <Compile Include="Windows\AddEditProductWindow.xaml.cs">
       <DependentUpon>AddEditProductWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\AppointmentEditWindow.xaml.cs">
       <DependentUpon>AppointmentEditWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CaptchaWindow.xaml.cs">
+      <DependentUpon>CaptchaWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Windows\ChangeUserStatusWindow.xaml.cs">
       <DependentUpon>ChangeUserStatusWindow.xaml</DependentUpon>
@@ -176,6 +182,18 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Themes\ControlStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\DarkTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\LightTheme.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\AdminPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -229,6 +247,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\AppointmentEditWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CaptchaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -291,12 +313,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="MGCosmetic.edmx">
+    <EntityDeploy Include="MG_Cosmetic.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MGCosmetic.Designer.cs</LastGenOutput>
+      <LastGenOutput>MG_Cosmetic.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="MGCosmetic.edmx.diagram">
-      <DependentUpon>MGCosmetic.edmx</DependentUpon>
+    <None Include="MG_Cosmetic.edmx.diagram">
+      <DependentUpon>MG_Cosmetic.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -312,15 +334,15 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Docs\mgBD.sql" />
-    <Content Include="MGCosmetic.Context.tt">
+    <Content Include="MG_Cosmetic.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MGCosmetic.edmx</DependentUpon>
-      <LastGenOutput>MGCosmetic.Context.cs</LastGenOutput>
+      <DependentUpon>MG_Cosmetic.edmx</DependentUpon>
+      <LastGenOutput>MG_Cosmetic.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="MGCosmetic.tt">
+    <Content Include="MG_Cosmetic.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>MGCosmetic.edmx</DependentUpon>
-      <LastGenOutput>MGCosmetic.cs</LastGenOutput>
+      <DependentUpon>MG_Cosmetic.edmx</DependentUpon>
+      <LastGenOutput>MG_Cosmetic.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

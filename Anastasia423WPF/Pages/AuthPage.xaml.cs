@@ -1,4 +1,5 @@
 ﻿using Anastasia423WPF.Windows;
+using Anastasia423WPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,12 +34,12 @@ namespace Anastasia423WPF.Pages
             {
                 user = us;
                 LoginText.Text += user.Login;
-                PassText.Password += user.Password;
             }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
             NavigationService.Navigate(new Catalog());
         }
 
@@ -49,8 +50,16 @@ namespace Anastasia423WPF.Pages
 
         private void Enter_Click(object sender, RoutedEventArgs e)
         {
+            // После 3 неверных паролей подряд вход возможен только после прохождения капчи
+            if (LoginAttemptTracker.IsCaptchaRequired(LoginText.Text) && !PassCaptcha())
+            {
+                return;
+            }
+
             if(AuthUser(LoginText.Text, PassText.Password))
             {
+                LoginAttemptTracker.Reset(LoginText.Text);
+
                 if (user.Status == "Freeze")
                 {
                     MessageBox.Show("Ваш аккаунт заблокирован администратором.", "Ошибка доступа");
@@ -74,8 +83,29 @@ namespace Anastasia423WPF.Pages
             }
             else
             {
-                MessageBox.Show("Авторизация не удалась! Проверьте праваильность логина и пароя!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
+                // Третья неверная попытка подряд — сразу показываем капчу
+                if (LoginAttemptTracker.IsCaptchaRequired(LoginText.Text))
+                {
+                    PassCaptcha();
+                }
             }
+        }
+
+        /// <summary>
+        /// Показывает окно с примером. Возвращает true, если пример решён верно
+        /// (счётчик неудачных попыток при этом сбрасывается).
+        /// </summary>
+        private bool PassCaptcha()
+        {
+            var captcha = new CaptchaWindow { Owner = Window.GetWindow(this) };
+
+            if (captcha.ShowDialog() == true)
+            {
+                LoginAttemptTracker.Reset(LoginText.Text);
+                return true;
+            }
+
+            return false;
         }
 
         public bool AuthUser(string login, string password)
@@ -92,6 +122,8 @@ namespace Anastasia423WPF.Pages
                     }
                     else
                     {
+                        // Неверный пароль — запоминаем попытку (после 3-й понадобится капча)
+                        LoginAttemptTracker.RegisterFailure(login);
                         MessageBox.Show("Введен неверный пароль!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
                         return false;
                     }

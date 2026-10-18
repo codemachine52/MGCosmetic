@@ -1,4 +1,5 @@
 ﻿using System;
+using Anastasia423WPF.Model;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -60,6 +61,15 @@ namespace Anastasia423WPF.Pages
             }
         }
 
-        private void Cancel_Click(object sender, RoutedEventArgs e) => NavigationService.GoBack();
+        private void Cancel_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this),
+                    "Вы уверены, что хотите вернуться назад? Введённые данные записи не сохранятся."))
+            {
+                return;
+            }
+
+            NavigationService.GoBack();
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Anastasia423WPF.Model;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
@@ -29,6 +30,7 @@ namespace Anastasia423WPF.Pages
         // Кнопка выхода (можно добавить в угол страницы)
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmLogout(Window.GetWindow(this))) return;
             NavigationService.Navigate(new AuthPage());
         }
     }

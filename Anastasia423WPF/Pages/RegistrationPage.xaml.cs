@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using Anastasia423WPF.Model;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -16,6 +17,7 @@ namespace Anastasia423WPF.Pages
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
             NavigationService.Navigate(new AuthPage());
         }
 

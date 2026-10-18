@@ -1,4 +1,5 @@
 ﻿using System;
+using Anastasia423WPF.Model;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
@@ -57,11 +58,13 @@ namespace Anastasia423WPF.Pages
 
         private void Logout_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmLogout(Window.GetWindow(this))) return;
             NavigationService.Navigate(new AuthPage());
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
             NavigationService.Navigate(new Catalog(_currentUser));
         }
     }

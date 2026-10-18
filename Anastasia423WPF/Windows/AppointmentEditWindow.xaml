@@ -1,4 +1,4 @@
-﻿<Window x:Class="Anastasia423WPF.Windows.AppointmentEditWindow"
+﻿<Window Background="{DynamicResource WindowBackgroundBrush}" Foreground="{DynamicResource TextBrush}" x:Class="Anastasia423WPF.Windows.AppointmentEditWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="Работа с записью" Height="450" Width="400" WindowStartupLocation="CenterOwner">
@@ -22,8 +22,8 @@
         <ComboBoxItem Content="Карта"/>
     </ComboBox>
 
-            <Button Content="Создать запись" Click="Save_Click" Padding="10" Background="#FF0F3E25" Foreground="White"/>
-            <Button Content="Отмена" Margin="0,10,0,0" Click="Cancel_Click"/>
+            <Button Content="Создать запись" Click="Save_Click" Padding="10" Background="{DynamicResource PrimaryButtonBrush}" Foreground="White"/>
+            <Button Style="{StaticResource ThemedButton}" Content="Отмена" Margin="0,10,0,0" Click="Cancel_Click"/>
         </StackPanel>
     </Grid>
 </Window>

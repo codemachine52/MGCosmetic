@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="febb5764f3e44cf99fbe0d4699565b33" Name="Diagram1">
+        <EntityTypeShape EntityType="MG_CosmeticModel.Apointment" Width="1.5" PointX="5.25" PointY="4.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MG_CosmeticModel.Manufacturer" Width="1.5" PointX="3" PointY="12.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MG_CosmeticModel.Order" Width="1.5" PointX="5.25" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="MG_CosmeticModel.Product" Width="1.5" PointX="5.25" PointY="13.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MG_CosmeticModel.Product_Order" Width="1.5" PointX="7.5" PointY="8.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="MG_CosmeticModel.Role" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="MG_CosmeticModel.Service" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MG_CosmeticModel.Service_Master" Width="1.5" PointX="8.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="MG_CosmeticModel.Type" Width="1.5" PointX="3" PointY="15.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="MG_CosmeticModel.User" Width="1.5" PointX="3" PointY="4.375" IsExpanded="true" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Apointment_Service" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Apointment_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Apointment_User1" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Product_Manufacturer" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Order_User" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Product_Order_Order1" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Product_Order_Product" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Product_Type" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_User_Role" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Service_Master_Service1" ManuallyRouted="false" />
+        <AssociationConnector Association="MG_CosmeticModel.FK_Service_Master_User" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

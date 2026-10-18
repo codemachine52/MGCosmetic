@@ -1,4 +1,5 @@
 ﻿using System;
+using Anastasia423WPF.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -49,10 +50,14 @@ namespace Anastasia423WPF.Pages
         {
             if ((sender as Button).DataContext is Apointment apt)
             {
-                apt.Status = "Выполнено";
-                Core.Context.SaveChanges();
-                MessageBox.Show("Услуга успешно оказана!");
-                RefreshData();
+                if (DateTime.Now >= apt.AppointmentDate)
+                {
+                    apt.Status = "Выполнено";
+                    Core.Context.SaveChanges();
+                    MessageBox.Show("Услуга успешно оказана!");
+                    RefreshData();
+                }
+                else MessageBox.Show("Сейчас оказать услугу нельзя! Запись стоит позже.");
             }
         }
 
@@ -69,6 +74,7 @@ namespace Anastasia423WPF.Pages
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmLogout(Window.GetWindow(this))) return;
             NavigationService.Navigate(new AuthPage());
         }
     }

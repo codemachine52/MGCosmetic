@@ -153,6 +153,8 @@ namespace Anastasia423WPF.Pages
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
+
             if (user != null)
             {
                 if(user.RoleID == 1) NavigationService.Navigate(new MainHubPage(user));

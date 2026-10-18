@@ -5,8 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Anastasia423WPF"
         mc:Ignorable="d"
-        Title="Салон красоты Косметическая Ложа" Height="450" Width="800">
+        Title="{Binding ElementName=MainFrame, Path=Content.Title, FallbackValue='Салон красоты MG'}" Height="450" Width="800"
+        Background="{DynamicResource WindowBackgroundBrush}"
+        Foreground="{DynamicResource TextBrush}">
     <Grid>
-        <Frame Source="Pages/StartPage.xaml" NavigationUIVisibility="Hidden"></Frame>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Верхняя панель с переключателем темы (видна на всех страницах) -->
+        <Border Grid.Row="0"
+                Background="{DynamicResource TopBarBackgroundBrush}"
+                BorderBrush="{DynamicResource TopBarBorderBrush}"
+                BorderThickness="0,0,0,1"
+                Padding="8,4">
+            <Button x:Name="ThemeToggleButton"
+                    HorizontalAlignment="Right"
+                    Padding="12,3"
+                    FontSize="13"
+                    Style="{StaticResource ThemedButton}"
+                    ToolTip="Переключить тему оформления"
+                    Click="ThemeToggleButton_Click"/>
+        </Border>
+
+        <Frame x:Name="MainFrame" Grid.Row="1" Source="Pages/StartPage.xaml" NavigationUIVisibility="Hidden"></Frame>
     </Grid>
 </Window>

@@ -1,4 +1,5 @@
 ﻿using Anastasia423WPF.Pages;
+using Anastasia423WPF.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -92,6 +93,7 @@ namespace Anastasia423WPF.Windows
 
         private void GoBack_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmBack(this)) return;
             this.Close();
         }
     }

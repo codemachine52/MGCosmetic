@@ -112,6 +112,10 @@ namespace Anastasia423WPF.Pages
             }
         }
 
-        private void Back_Click(object sender, RoutedEventArgs e) => NavigationService.GoBack();
+        private void Back_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
+            NavigationService.GoBack();
+        }
     }
 }
