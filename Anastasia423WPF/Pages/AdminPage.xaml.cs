@@ -1,9 +1,10 @@
 ﻿using System;
-using Anastasia423WPF.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
+using Anastasia423WPF.Model;
 using Anastasia423WPF.Windows;
 
 namespace Anastasia423WPF.Pages
@@ -105,16 +106,58 @@ namespace Anastasia423WPF.Pages
             }
         }
 
-        private void HideProduct_Click(object sender, RoutedEventArgs e)
+        private void DeleteProduct_Click(object sender, RoutedEventArgs e)
         {
-            if (ProductsGrid.SelectedItem is Product selected)
+            if (!(ProductsGrid.SelectedItem is Product selected))
             {
-                if (MessageBox.Show($"Скрыть товар {selected.Name} из каталога?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
-                {
-                    selected.IsActive = false;
-                    Core.Context.SaveChanges();
-                    LoadData();
-                }
+                MessageBox.Show("Выберите товар из списка!");
+                return;
+            }
+            if (!selected.IsActive)
+            {
+                if (MessageBox.Show($"Вернуть товар {selected.Name} в каталог?", "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+                selected.IsActive = true;
+                Core.Context.SaveChanges();
+                LoadData();
+                return;
+            }
+            bool inOrders = Core.Context.Product_Order.Any(po => po.ProductID == selected.ID);
+
+            if (inOrders)
+            {
+                if (MessageBox.Show($"Товар «{selected.Name}» есть в заказах, удалить его нельзя.\nСкрыть его из каталога?",
+                    "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+
+                selected.IsActive = false;
+            }
+            else
+            {
+                if (MessageBox.Show($"Удалить товар «{selected.Name}» полностью?",
+                    "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+
+                Core.Context.Product.Remove(selected);
+            }
+
+            Core.Context.SaveChanges();
+            LoadData();
+        }
+
+        private void ProductsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            UpdateToggleButton();
+        }
+
+        private void UpdateToggleButton()
+        {
+            if (ProductsGrid.SelectedItem is Product selected && !selected.IsActive)
+            {
+                DeleteProductBtn.Content = "Вернуть в каталог";
+                DeleteProductBtn.Background = new SolidColorBrush(Color.FromRgb(0x2E, 0x7D, 0x32)); // зелёный
+            }
+            else
+            {
+                DeleteProductBtn.Content = "Удалить";
+                DeleteProductBtn.Background = new SolidColorBrush(Color.FromRgb(0x8B, 0x00, 0x00)); // тёмно-красный
             }
         }
 
@@ -136,25 +179,26 @@ namespace Anastasia423WPF.Pages
         {
             if (ManufacturersGrid.SelectedItem is Manufacturer selected)
             {
-                try
+                if (Core.Context.Product.Any(p => p.ManufacturerID == selected.ID))
                 {
-                    Core.Context.Manufacturer.Remove(selected);
-                    Core.Context.SaveChanges();
-                    LoadData();
+                    MessageBox.Show("Нельзя удалить производителя, так как он привязан к товарам!");
+                    return;
                 }
-                catch { MessageBox.Show("Нельзя удалить производителя, так как он привязан к товарам!"); }
+                Core.Context.Manufacturer.Remove(selected);
+                Core.Context.SaveChanges();
+                LoadData();
             }
         }
 
         // --- ТИПЫ ---
         private void AddType_Click(object sender, RoutedEventArgs e)
         {
-            if (new DictionaryEditWindow(new Anastasia423WPF.Type()).ShowDialog() == true) LoadData();
+            if (new DictionaryEditWindow(new Type()).ShowDialog() == true) LoadData();
         }
 
         private void EditType_Click(object sender, RoutedEventArgs e)
         {
-            if (TypesGrid.SelectedItem is Anastasia423WPF.Type selected)
+            if (TypesGrid.SelectedItem is Type selected)
             {
                 if (new DictionaryEditWindow(selected).ShowDialog() == true) LoadData();
             }
@@ -162,15 +206,16 @@ namespace Anastasia423WPF.Pages
 
         private void DeleteType_Click(object sender, RoutedEventArgs e)
         {
-            if (TypesGrid.SelectedItem is Anastasia423WPF.Type selected)
+            if (TypesGrid.SelectedItem is Type selected)
             {
-                try
+                if (Core.Context.Product.Any(p => p.TypeID == selected.ID))
                 {
-                    Core.Context.Type.Remove(selected);
-                    Core.Context.SaveChanges();
-                    LoadData();
+                    MessageBox.Show("Нельзя удалить производителя, так как он привязан к товарам!");
+                    return;
                 }
-                catch { MessageBox.Show("Нельзя удалить тип, так как он используется в записях!"); }
+                Core.Context.Type.Remove(selected);
+                Core.Context.SaveChanges();
+                LoadData();
             }
         }
 
