@@ -9,7 +9,7 @@
 
     <Grid Background="{DynamicResource RegistrationBackgroundBrush}">
 
-        <Button x:Name="Back" Width="100" Height="35" FontSize="20" Background="{DynamicResource PrimaryButtonBrush}" FontWeight="Thin" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,30" Click="Back_Click">Назад</Button>
+        <Button x:Name="Back" Width="150" Height="35" FontSize="20" Background="{DynamicResource PrimaryButtonBrush}" FontWeight="Thin" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="30,0,0,30" Click="Back_Click">Назад</Button>
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Width="250">
             <TextBlock Padding="0,0,0,20" FontSize="36" FontWeight="Thin" Foreground="White" HorizontalAlignment="Center">Регистрация</TextBlock>

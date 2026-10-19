@@ -28,7 +28,7 @@
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
                         <Button Style="{StaticResource ThemedButton}" Content="Добавить" Width="100" Margin="5" Click="AddProduct_Click"/>
                         <Button Style="{StaticResource ThemedButton}" Content="Редактировать" Width="120" Margin="5" Click="EditProduct_Click"/>
-                        <Button Content="Удалить" Width="100" Margin="5" Background="#8B0000" Foreground="White" Click="DeleteProduct_Click"/>
+                        <Button Content="Удалить из каталога" Width="150" Height="30" Margin="5" Background="#8B0000" Foreground="White" Click="HideProduct_Click"/>
                     </StackPanel>
                 </Grid>
             </TabItem>

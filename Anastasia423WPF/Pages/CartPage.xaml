@@ -55,15 +55,15 @@
 
         <Border Grid.Row="2" Background="{DynamicResource PanelBackgroundBrush}" Margin="20,10">
             <Grid>
-                <Button Style="{StaticResource ThemedButton}" Content="Назад" HorizontalAlignment="Left" Width="120" Height="40" 
-                        Margin="20,0" Click="Back_Click"/>
+                <Button Style="{StaticResource ThemedButton}" Content="Назад" HorizontalAlignment="Left" Width="150" Height="35" 
+                        Margin="20,0" Click="Back_Click" FontSize="16"/>
 
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0">
                     <TextBlock Text="Итого: " FontSize="22" VerticalAlignment="Center"/>
                     <TextBlock x:Name="TotalSumText" Text="0 ₽" FontSize="26" FontWeight="Bold" 
                                Foreground="{DynamicResource AccentTextBrush}" VerticalAlignment="Center" Margin="10,0,30,0"/>
 
-                    <Button x:Name="OrderBtn" Content="ОФОРМИТЬ ЗАКАЗ" Width="200" Height="50" 
+                    <Button x:Name="OrderBtn" Content="ОФОРМИТЬ ЗАКАЗ" Width="200" Height="40" Padding="5" 
                             Background="{DynamicResource PrimaryButtonBrush}" Foreground="White" FontWeight="Bold" FontSize="16" 
                             Click="Order_Click"/>
                 </StackPanel>

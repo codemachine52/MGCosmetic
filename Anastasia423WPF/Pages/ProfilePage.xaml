@@ -23,7 +23,7 @@
                             <TextBlock Text="{Binding Phone, StringFormat='Тел: {0}'}" FontSize="14" Margin="0,5"/>
                         </StackPanel>
 
-                        <Button Grid.Column="2" Content="Выйти" Click="Logout_Click" Width="100" Height="30" Background="{DynamicResource AccentButtonBrush}" Foreground="White"/>
+                        <Button Grid.Column="2" Content="Выйти" Click="Logout_Click" Width="150" Height="35" Background="{DynamicResource AccentButtonBrush}" Foreground="White"/>
                     </Grid>
                 </Border>
 

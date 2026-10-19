@@ -105,13 +105,13 @@ namespace Anastasia423WPF.Pages
             }
         }
 
-        private void DeleteProduct_Click(object sender, RoutedEventArgs e)
+        private void HideProduct_Click(object sender, RoutedEventArgs e)
         {
             if (ProductsGrid.SelectedItem is Product selected)
             {
-                if (MessageBox.Show($"Удалить товар {selected.Name}?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                if (MessageBox.Show($"Скрыть товар {selected.Name} из каталога?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                 {
-                    Core.Context.Product.Remove(selected);
+                    selected.IsActive = false;
                     Core.Context.SaveChanges();
                     LoadData();
                 }

@@ -39,7 +39,7 @@
                 </ListView.ItemTemplate>
             </ListView>
         </StackPanel>
-        <Button x:Name="ExitButton" Content="Выйти" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30" FontSize="18" Width="100"
+        <Button x:Name="ExitButton" Content="Выйти" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="30" FontSize="18" Width="150"
         Background="DarkRed" Foreground="Wheat" Click="ExitButton_Click"/>
     </Grid>
 </Page>
