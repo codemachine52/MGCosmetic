@@ -166,7 +166,14 @@ namespace Anastasia423WPF.Pages
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate(new AdminPage(_currentUser));
+            if (_currentUser.RoleID == 4 && NavigationService.CanGoBack)
+            {
+                NavigationService.GoBack();
+            }
+            else
+            {
+                NavigationService.Navigate(new AdminPage(_currentUser));
+            }
         }
 
         private void ExitAccButton_Click(object sender, RoutedEventArgs e)

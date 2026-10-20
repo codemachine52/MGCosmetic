@@ -116,6 +116,7 @@
             </TabItem>
         </TabControl>
 
-        <Button Style="{StaticResource ThemedButton}" Grid.Row="1" Content="Назад к записям" Width="150" Height="35" HorizontalAlignment="Left" Margin="15" Click="Back_Click"/>
+        <Button x:Name="goBack" Style="{StaticResource ThemedButton}" Grid.Row="1" Content="Назад к записям" Width="150" Height="35" HorizontalAlignment="Left" Margin="15" Click="Back_Click"/>
+        <Button x:Name="gotoCatalog" Style="{StaticResource ThemedButton}" Grid.Row="1" Content="К записям" Width="150" Height="35" HorizontalAlignment="Center" Margin="30,0,0,0" Click="gotoCatalog_Click"/>
     </Grid>
 </Page>

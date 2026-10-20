@@ -333,7 +333,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Docs\mgBD.sql" />
+    <Content Include="Db\MG_CosmeticDBscript.sql" />
     <Content Include="MG_Cosmetic.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MG_Cosmetic.edmx</DependentUpon>

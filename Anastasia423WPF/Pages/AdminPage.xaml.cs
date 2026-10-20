@@ -24,8 +24,12 @@ namespace Anastasia423WPF.Pages
                 UsersTab.Visibility = Visibility.Collapsed;
                 DeleteManufacturerBtn.Visibility = Visibility.Collapsed;
                 DeleteTypeBtn.Visibility = Visibility.Collapsed;
+                gotoCatalog.Visibility = Visibility.Collapsed;
             }
-
+            if(_currentUser.RoleID == 4)
+            {
+                goBack.Content = "Выйти из аккаунта";
+            }
             LoadData();
         }
 
@@ -61,12 +65,12 @@ namespace Anastasia423WPF.Pages
                 if (selectedUser.ID == _currentUser.ID && newRole.ID != 4)
                 {
                     MessageBox.Show("Вы не можете лишить прав администратора самого себя!");
-                    LoadData();
+                    combo.SelectedItem = combo.Items.Cast<Role>().FirstOrDefault(r => r.ID == 4);
                     return;
                 }
-
                 selectedUser.RoleID = newRole.ID;
                 Core.Context.SaveChanges();
+                LoadData();
             }
         }
 
@@ -210,7 +214,7 @@ namespace Anastasia423WPF.Pages
             {
                 if (Core.Context.Product.Any(p => p.TypeID == selected.ID))
                 {
-                    MessageBox.Show("Нельзя удалить производителя, так как он привязан к товарам!");
+                    MessageBox.Show("Нельзя удалить категорию, так как она привязана к товарам!");
                     return;
                 }
                 Core.Context.Type.Remove(selected);
@@ -221,8 +225,28 @@ namespace Anastasia423WPF.Pages
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
-            NavigationService.GoBack();
+            if (_currentUser.RoleID == 4)
+            {
+                // Для Администратора это полноценный выход из аккаунта
+                if (!ConfirmationHelper.ConfirmLogout(Window.GetWindow(this))) return;
+                NavigationService.Navigate(new AuthPage(_currentUser));
+                // ОЧИЩАЕМ историю, чтобы кнопкой "Назад" нельзя было вернуться в админку
+                while (NavigationService.CanGoBack)
+                {
+                    NavigationService.RemoveBackEntry();
+                }
+            }
+            else
+            {
+                // Для обычного менеджера это просто возврат на его страницу товаров/заказов
+                if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
+                NavigationService.GoBack();
+            }
+        }
+
+        private void gotoCatalog_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ManagerPage(_currentUser));
         }
     }
 }
