@@ -30,10 +30,11 @@
                         </DataGrid.Columns>
                     </DataGrid>
 
-                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5">
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,0,0,5">
                         <Button Style="{StaticResource ThemedButton}" Content="Просмотреть состав" Width="150" Height="35" Margin="5" Click="ViewDetails_Click"/>
                         <Button Content="ВЫДАТЬ ЗАКАЗ" Width="150" Height="35" Margin="5" 
                                 Background="{DynamicResource PrimaryButtonBrush}" Foreground="White" Click="IssueOrderBtn_Click"/>
+                        <Button Style="{StaticResource ThemedButton}" Content="Отчет по продажам" Width="160" Height="35" Margin="5" Click="OpenSalesReport_Click"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -67,7 +68,7 @@
         </TabControl>
         <Button x:Name="ExitButton" Content="К товарам" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="25" FontSize="16" Width="150"
                 Background="DarkRed" Foreground="Wheat" Click="ExitButton_Click" Padding="5"/>
-        <Button x:Name="ExitAccButton" Content="Выйти" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,50,25" FontSize="16" Width="150"
+        <Button x:Name="ExitAccButton" Content="Выйти" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,30,25" FontSize="16" Width="150"
         Background="Crimson" Foreground="White" Click="ExitAccButton_Click" Padding="5"/>
     </Grid>
 </Page>
