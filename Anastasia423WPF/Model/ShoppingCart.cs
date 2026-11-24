@@ -10,9 +10,26 @@ namespace Anastasia423WPF.Model
     {
         public static List<Product> Items { get; set; } = new List<Product>();
 
-        public static void Add(Product product)
+        // false, если в корзине уже всё, что есть на складе
+        public static bool Add(Product product)
         {
-            Items.Add(product);
+            bool inCart = Items.Contains(product);
+            int count = inCart ? product.CountProd : 0;
+
+            if (count >= product.Quantity)
+            {
+                return false;
+            }
+
+            if (inCart)
+            {
+                product.CountProd++;
+            }
+            else
+            {
+                Items.Add(product);
+            }
+            return true;
         }
     }
 

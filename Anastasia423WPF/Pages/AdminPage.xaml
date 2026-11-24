@@ -17,27 +17,41 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <DataGrid x:Name="ProductsGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="10" SelectionChanged="ProductsGrid_SelectionChanged">
+                    <DataGrid x:Name="ProductsGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="10">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="ID" Binding="{Binding ID}"/>
                             <DataGridTextColumn Header="Название" Binding="{Binding Name}" Width="*"/>
                             <DataGridTextColumn Header="Цена" Binding="{Binding Price}"/>
                             <DataGridTextColumn Header="Скидка" Binding="{Binding Discount}"/>
+                            <DataGridTextColumn Header="В наличии" Binding="{Binding Quantity}"/>
                         </DataGrid.Columns>
-                        <DataGrid.RowStyle>
-                            <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
-                                <Style.Triggers>
-                                    <DataTrigger Binding="{Binding IsActive}" Value="False">
-                                        <Setter Property="Opacity" Value="0.5"/>
-                                    </DataTrigger>
-                                </Style.Triggers>
-                            </Style>
-                        </DataGrid.RowStyle>
                     </DataGrid>
                     <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
-                        <Button Style="{StaticResource ThemedButton}" Content="Добавить" Width="120" Margin="5" Click="AddProduct_Click"/>
+                        <Button Style="{StaticResource ThemedButton}" Content="Добавить" Width="100" Margin="5" Click="AddProduct_Click"/>
                         <Button Style="{StaticResource ThemedButton}" Content="Редактировать" Width="120" Margin="5" Click="EditProduct_Click"/>
-                        <Button x:Name="DeleteProductBtn" Content="Удалить" Width="120" Height="30" Margin="5" Background="#8B0000" Foreground="White" Click="DeleteProduct_Click"/>
+                        <Button Content="Удалить" Width="100" Margin="5" Background="#8B0000" Foreground="White" Click="DeleteProduct_Click"/>
+                    </StackPanel>
+                </Grid>
+            </TabItem>
+
+            <TabItem Header="Поставки" FontSize="14" Padding="10,5">
+                <Grid Background="{DynamicResource ContentBackgroundBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <DataGrid x:Name="SupplyGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="10">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="№" Binding="{Binding ID}"/>
+                            <DataGridTextColumn Header="Поставщик" Binding="{Binding Supplier.Name}"/>
+                            <DataGridTextColumn Header="Дата" Binding="{Binding OrderDate, StringFormat={}{0:dd.MM.yyyy HH:mm}}"/>
+                            <DataGridTextColumn Header="Статус" Binding="{Binding Status}"/>
+                            <DataGridTextColumn Header="Состав" Binding="{Binding Composition}" Width="*"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="10">
+                        <Button Style="{StaticResource ThemedButton}" Content="Заказать у поставщика" Width="170" Margin="5" Click="AddSupplyOrder_Click"/>
+                        <Button Style="{StaticResource ThemedButton}" Content="Принять поставку" Width="140" Margin="5" Click="ReceiveSupply_Click"/>
                     </StackPanel>
                 </Grid>
             </TabItem>
@@ -116,7 +130,6 @@
             </TabItem>
         </TabControl>
 
-        <Button x:Name="goBack" Style="{StaticResource ThemedButton}" Grid.Row="1" Content="Назад к записям" Width="150" Height="35" HorizontalAlignment="Left" Margin="15" Click="Back_Click"/>
-        <Button x:Name="gotoCatalog" Style="{StaticResource ThemedButton}" Grid.Row="1" Content="К записям" Width="150" Height="35" HorizontalAlignment="Center" Margin="30,0,0,0" Click="gotoCatalog_Click"/>
+        <Button Style="{StaticResource ThemedButton}" Grid.Row="1" Content="Назад к записям" Width="150" Height="35" HorizontalAlignment="Left" Margin="15" Click="Back_Click"/>
     </Grid>
 </Page>

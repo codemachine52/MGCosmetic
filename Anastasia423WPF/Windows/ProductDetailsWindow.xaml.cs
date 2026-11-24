@@ -31,8 +31,12 @@ namespace Anastasia423WPF.Windows
                 return;
             }
 
-            // Логика добавления (можно сделать через статический класс корзины)
-            ShoppingCart.Add(CurrentProduct);
+            if (!ShoppingCart.Add(CurrentProduct))
+            {
+                MessageBox.Show($"Товара недостаточно на складе. В наличии: {CurrentProduct.Quantity} шт.");
+                return;
+            }
+
             MessageBox.Show($"{CurrentProduct.Name} добавлен в корзину!");
         }
     }

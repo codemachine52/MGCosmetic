@@ -23,10 +23,10 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="Auto"/>
                         </Grid.ColumnDefinitions>
-                        <TextBlock Text="{Binding Product.Name}" TextWrapping="Wrap" Foreground="Black"/>
+                        <TextBlock Text="{Binding Product.Name}" TextWrapping="Wrap"/>
                         <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="10,0,0,0">
-                            <TextBlock Text="{Binding CountProd, StringFormat={}{0} шт.}" Margin="0,0,10,0" Foreground="Black"/>
-                            <TextBlock Text="{Binding Product.PriceWithDiscount, StringFormat={}{0:N0} ₽}" Foreground="Black" FontWeight="Bold"/>
+                            <TextBlock Text="{Binding CountProd, StringFormat={}{0} шт.}" Margin="0,0,10,0"/>
+                            <TextBlock Text="{Binding Product.PriceWithDiscount, StringFormat={}{0:N0} ₽}" FontWeight="Bold"/>
                         </StackPanel>
                     </Grid>
                 </DataTemplate>

@@ -33,6 +33,12 @@ namespace Anastasia423WPF.Pages
         {
             if ((sender as Button).DataContext is Product product)
             {
+                if (product.CountProd >= product.Quantity)
+                {
+                    MessageBox.Show($"На складе доступно только {product.Quantity} шт.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+
                 product.CountProd++;
                 RefreshCart();
             }
@@ -51,6 +57,7 @@ namespace Anastasia423WPF.Pages
         {
             if ((sender as Button).DataContext is Product product)
             {
+                product.CountProd = 1;
                 ShoppingCart.Items.Remove(product);
                 RefreshCart();
             }
@@ -64,6 +71,17 @@ namespace Anastasia423WPF.Pages
                 return;
             }
 
+            // Берём актуальные остатки из БД и проверяем, что товара хватает
+            foreach (var item in ShoppingCart.Items)
+            {
+                Core.Context.Entry(item).Reload();
+                if (item.CountProd > item.Quantity)
+                {
+                    MessageBox.Show($"Товара '{item.Name}' недостаточно на складе. В наличии: {item.Quantity} шт.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+            }
+
             // Итоговая сумма для окна
             decimal total = ShoppingCart.Items.Sum(p => p.Price * (1 - (decimal)p.Discount / 100) * p.CountProd);
 
@@ -74,7 +92,6 @@ namespace Anastasia423WPF.Pages
             {
                 try
                 {
-                    // 1. Создаем сам заказ
                     Order newOrder = new Order
                     {
                         ClientID = _currentUser.ID,
@@ -85,23 +102,25 @@ namespace Anastasia423WPF.Pages
                         ReceiveDate = checkout.SelectedDate
                     };
 
-                    Core.Context.Order.Add(newOrder);
-                    Core.Context.SaveChanges(); // Сохраняем, чтобы получить ID заказа
-
-                    // 2. Создаем детали заказа
+                    // Состав заказа и списание со склада сохраняются вместе с заказом одной транзакцией
                     foreach (var item in ShoppingCart.Items)
                     {
-                        Core.Context.Product_Order.Add(new Product_Order
+                        newOrder.Product_Order.Add(new Product_Order
                         {
-                            OrderID = newOrder.ID,
                             ProductID = item.ID,
                             CountProd = item.CountProd
                         });
+                        item.Quantity -= item.CountProd;
                     }
 
+                    Core.Context.Order.Add(newOrder);
                     Core.Context.SaveChanges();
 
                     MessageBox.Show($"Заказ №{newOrder.ID} успешно оформлен!");
+                    foreach (var item in ShoppingCart.Items)
+                    {
+                        item.CountProd = 1;
+                    }
                     ShoppingCart.Items.Clear();
                     NavigationService.GoBack();
                 }

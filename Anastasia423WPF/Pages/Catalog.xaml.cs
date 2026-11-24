@@ -22,6 +22,7 @@ namespace Anastasia423WPF.Pages
             InitializeComponent();
             LoadFilters();
             UpdateProducts();
+            Loaded += (s, e) => UpdateProducts(); // обновляем остатки при возврате на страницу
             if (user != null && (user.RoleID == 3 || user.RoleID == 4))
             {
                 AdminPanelBtn.Visibility = Visibility.Visible;
@@ -123,7 +124,12 @@ namespace Anastasia423WPF.Pages
             var button = sender as Button;
             var product = button.DataContext as Product;
 
-            ShoppingCart.Add(product);
+            if (!ShoppingCart.Add(product))
+            {
+                MessageBox.Show($"Товара '{product.Name}' недостаточно на складе. В наличии: {product.Quantity} шт.", "Внимание", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             MessageBox.Show($"Товар '{product.Name}' добавлен в корзину!", "Успех");
         }
 

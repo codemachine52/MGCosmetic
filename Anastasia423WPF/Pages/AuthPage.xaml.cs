@@ -39,6 +39,7 @@ namespace Anastasia423WPF.Pages
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
+            if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
             NavigationService.Navigate(new Catalog());
         }
 
@@ -82,6 +83,8 @@ namespace Anastasia423WPF.Pages
             }
             else
             {
+                MessageBox.Show("Авторизация не удалась! Проверьте праваильность логина и пароя!", "Ошибка входа", MessageBoxButton.OK, MessageBoxImage.Error);
+
                 // Третья неверная попытка подряд — сразу показываем капчу
                 if (LoginAttemptTracker.IsCaptchaRequired(LoginText.Text))
                 {

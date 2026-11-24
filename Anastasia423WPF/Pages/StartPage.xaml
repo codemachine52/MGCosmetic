@@ -6,11 +6,11 @@
       xmlns:local="clr-namespace:Anastasia423WPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Приветственная страница">
+      Title="StartPage">
 
     <Grid Background="{DynamicResource StartBackgroundBrush}">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock x:Name="Title" FontSize="36" FontWeight="Thin"  Foreground="{DynamicResource HeadingTextBrush}">Салон красоты MG</TextBlock>
+            <TextBlock x:Name="Title" FontSize="36" FontWeight="Thin"  Foreground="{DynamicResource HeadingTextBrush}">Косметическая ложа</TextBlock>
             <Button x:Name="LoginButton" Background="#FFECDA87" FontSize="22" Margin="0,40,0,0" Foreground="#FF6F1717" Padding="10" Click="LoginButton_Click">Вход</Button>
         </StackPanel>
     </Grid>

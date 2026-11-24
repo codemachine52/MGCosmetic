@@ -73,6 +73,10 @@ namespace Anastasia423WPF.Pages
                 OrderDetailsWindow details = new OrderDetailsWindow(selectedOrder);
                 details.ShowDialog();
             }
+            else
+            {
+                MessageBox.Show("Выберите заказ из списка!");
+            }
         }
 
         // --- ЛОГИКА ЗАПИСЕЙ ---
@@ -136,6 +140,10 @@ namespace Anastasia423WPF.Pages
                     }
                 }
             }
+            else
+            {
+                MessageBox.Show("Выберите запись из списка!");
+            }
         }
 
         private void CancelApt_Click(object sender, RoutedEventArgs e)
@@ -146,6 +154,10 @@ namespace Anastasia423WPF.Pages
                 Core.Context.SaveChanges();
                 MessageBox.Show("Запись отменена");
                 LoadData();
+            }
+            else
+            {
+                MessageBox.Show("Выберите запись из списка!");
             }
         }
 
@@ -162,29 +174,21 @@ namespace Anastasia423WPF.Pages
                     LoadData();
                 }
             }
+            else
+            {
+                MessageBox.Show("Выберите запись из списка!");
+            }
         }
 
         private void ExitButton_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentUser.RoleID == 4 && NavigationService.CanGoBack)
-            {
-                NavigationService.GoBack();
-            }
-            else
-            {
-                NavigationService.Navigate(new AdminPage(_currentUser));
-            }
+            NavigationService.Navigate(new AdminPage(_currentUser));
         }
 
         private void ExitAccButton_Click(object sender, RoutedEventArgs e)
         {
             if (!ConfirmationHelper.ConfirmLogout(Window.GetWindow(this))) return;
             NavigationService.Navigate(new AuthPage(_currentUser));
-        }
-
-        private void OpenSalesReport_Click(object sender, RoutedEventArgs e)
-        {
-            new SalesReportWindow().ShowDialog();
         }
     }
 }

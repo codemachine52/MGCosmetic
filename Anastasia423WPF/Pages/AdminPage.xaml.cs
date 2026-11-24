@@ -1,10 +1,9 @@
 ﻿using System;
+using Anastasia423WPF.Model;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using Anastasia423WPF.Model;
 using Anastasia423WPF.Windows;
 
 namespace Anastasia423WPF.Pages
@@ -24,12 +23,8 @@ namespace Anastasia423WPF.Pages
                 UsersTab.Visibility = Visibility.Collapsed;
                 DeleteManufacturerBtn.Visibility = Visibility.Collapsed;
                 DeleteTypeBtn.Visibility = Visibility.Collapsed;
-                gotoCatalog.Visibility = Visibility.Collapsed;
             }
-            if(_currentUser.RoleID == 4)
-            {
-                goBack.Content = "Выйти из аккаунта";
-            }
+
             LoadData();
         }
 
@@ -39,6 +34,7 @@ namespace Anastasia423WPF.Pages
             {
                 AllRoles = Core.Context.Role.ToList();
                 ProductsGrid.ItemsSource = Core.Context.Product.ToList();
+                SupplyGrid.ItemsSource = Core.Context.SupplyOrder.ToList();
                 ManufacturersGrid.ItemsSource = Core.Context.Manufacturer.ToList();
                 TypesGrid.ItemsSource = Core.Context.Type.ToList();
                 UsersGrid.ItemsSource = Core.Context.User.ToList();
@@ -65,12 +61,12 @@ namespace Anastasia423WPF.Pages
                 if (selectedUser.ID == _currentUser.ID && newRole.ID != 4)
                 {
                     MessageBox.Show("Вы не можете лишить прав администратора самого себя!");
-                    combo.SelectedItem = combo.Items.Cast<Role>().FirstOrDefault(r => r.ID == 4);
+                    LoadData();
                     return;
                 }
+
                 selectedUser.RoleID = newRole.ID;
                 Core.Context.SaveChanges();
-                LoadData();
             }
         }
 
@@ -108,60 +104,64 @@ namespace Anastasia423WPF.Pages
             {
                 if (new AddEditProductWindow(selected).ShowDialog() == true) LoadData();
             }
+            else
+            {
+                MessageBox.Show("Выберите товар из списка!");
+            }
         }
 
         private void DeleteProduct_Click(object sender, RoutedEventArgs e)
         {
-            if (!(ProductsGrid.SelectedItem is Product selected))
+            if (ProductsGrid.SelectedItem is Product selected)
+            {
+                if (MessageBox.Show($"Удалить товар {selected.Name}?", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    // сначала удаляем строки заказов и поставок, которые ссылаются на товар
+                    Core.Context.Product_Order.RemoveRange(Core.Context.Product_Order.Where(p => p.ProductID == selected.ID).ToList());
+                    Core.Context.SupplyOrder_Product.RemoveRange(Core.Context.SupplyOrder_Product.Where(p => p.ProductID == selected.ID).ToList());
+                    Core.Context.Product.Remove(selected);
+                    Core.Context.SaveChanges();
+                    LoadData();
+                }
+            }
+            else
             {
                 MessageBox.Show("Выберите товар из списка!");
-                return;
             }
-            if (!selected.IsActive)
-            {
-                if (MessageBox.Show($"Вернуть товар {selected.Name} в каталог?", "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-                selected.IsActive = true;
-                Core.Context.SaveChanges();
-                LoadData();
-                return;
-            }
-            bool inOrders = Core.Context.Product_Order.Any(po => po.ProductID == selected.ID);
+        }
 
-            if (inOrders)
-            {
-                if (MessageBox.Show($"Товар «{selected.Name}» есть в заказах, удалить его нельзя.\nСкрыть его из каталога?",
-                    "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
+        // --- ПОСТАВКИ ---
+        private void AddSupplyOrder_Click(object sender, RoutedEventArgs e)
+        {
+            if (new SupplyOrderWindow().ShowDialog() == true) LoadData();
+        }
 
-                selected.IsActive = false;
+        private void ReceiveSupply_Click(object sender, RoutedEventArgs e)
+        {
+            if (SupplyGrid.SelectedItem is SupplyOrder selected)
+            {
+                if (selected.Status == "Получен")
+                {
+                    MessageBox.Show("Эта поставка уже принята!");
+                    return;
+                }
+
+                if (MessageBox.Show($"Принять поставку №{selected.ID}? Товары будут добавлены на склад.", "Подтверждение", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                {
+                    foreach (var line in selected.SupplyOrder_Product)
+                    {
+                        Core.Context.Entry(line.Product).Reload();
+                        line.Product.Quantity += line.Quantity;
+                    }
+
+                    selected.Status = "Получен";
+                    Core.Context.SaveChanges();
+                    LoadData();
+                }
             }
             else
             {
-                if (MessageBox.Show($"Удалить товар «{selected.Name}» полностью?",
-                    "Подтверждение", MessageBoxButton.YesNo) != MessageBoxResult.Yes) return;
-
-                Core.Context.Product.Remove(selected);
-            }
-
-            Core.Context.SaveChanges();
-            LoadData();
-        }
-
-        private void ProductsGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            UpdateToggleButton();
-        }
-
-        private void UpdateToggleButton()
-        {
-            if (ProductsGrid.SelectedItem is Product selected && !selected.IsActive)
-            {
-                DeleteProductBtn.Content = "Вернуть в каталог";
-                DeleteProductBtn.Background = new SolidColorBrush(Color.FromRgb(0x2E, 0x7D, 0x32)); // зелёный
-            }
-            else
-            {
-                DeleteProductBtn.Content = "Удалить";
-                DeleteProductBtn.Background = new SolidColorBrush(Color.FromRgb(0x8B, 0x00, 0x00)); // тёмно-красный
+                MessageBox.Show("Выберите заказ поставщику из списка!");
             }
         }
 
@@ -177,76 +177,70 @@ namespace Anastasia423WPF.Pages
             {
                 if (new DictionaryEditWindow(selected).ShowDialog() == true) LoadData();
             }
+            else
+            {
+                MessageBox.Show("Выберите производителя из списка!");
+            }
         }
 
         private void DeleteManufacturer_Click(object sender, RoutedEventArgs e)
         {
             if (ManufacturersGrid.SelectedItem is Manufacturer selected)
             {
-                if (Core.Context.Product.Any(p => p.ManufacturerID == selected.ID))
+                try
                 {
-                    MessageBox.Show("Нельзя удалить производителя, так как он привязан к товарам!");
-                    return;
+                    Core.Context.Manufacturer.Remove(selected);
+                    Core.Context.SaveChanges();
+                    LoadData();
                 }
-                Core.Context.Manufacturer.Remove(selected);
-                Core.Context.SaveChanges();
-                LoadData();
+                catch { MessageBox.Show("Нельзя удалить производителя, так как он привязан к товарам!"); }
+            }
+            else
+            {
+                MessageBox.Show("Выберите производителя из списка!");
             }
         }
 
         // --- ТИПЫ ---
         private void AddType_Click(object sender, RoutedEventArgs e)
         {
-            if (new DictionaryEditWindow(new Type()).ShowDialog() == true) LoadData();
+            if (new DictionaryEditWindow(new Anastasia423WPF.Type()).ShowDialog() == true) LoadData();
         }
 
         private void EditType_Click(object sender, RoutedEventArgs e)
         {
-            if (TypesGrid.SelectedItem is Type selected)
+            if (TypesGrid.SelectedItem is Anastasia423WPF.Type selected)
             {
                 if (new DictionaryEditWindow(selected).ShowDialog() == true) LoadData();
+            }
+            else
+            {
+                MessageBox.Show("Выберите тип из списка!");
             }
         }
 
         private void DeleteType_Click(object sender, RoutedEventArgs e)
         {
-            if (TypesGrid.SelectedItem is Type selected)
+            if (TypesGrid.SelectedItem is Anastasia423WPF.Type selected)
             {
-                if (Core.Context.Product.Any(p => p.TypeID == selected.ID))
+                try
                 {
-                    MessageBox.Show("Нельзя удалить категорию, так как она привязана к товарам!");
-                    return;
+                    Core.Context.Type.Remove(selected);
+                    Core.Context.SaveChanges();
+                    LoadData();
                 }
-                Core.Context.Type.Remove(selected);
-                Core.Context.SaveChanges();
-                LoadData();
+                catch { MessageBox.Show("Нельзя удалить тип, так как он используется в записях!"); }
+            }
+            else
+            {
+                MessageBox.Show("Выберите тип из списка!");
             }
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            if (_currentUser.RoleID == 4)
-            {
-                // Для Администратора это полноценный выход из аккаунта
-                if (!ConfirmationHelper.ConfirmLogout(Window.GetWindow(this))) return;
-                NavigationService.Navigate(new AuthPage(_currentUser));
-                // ОЧИЩАЕМ историю, чтобы кнопкой "Назад" нельзя было вернуться в админку
-                while (NavigationService.CanGoBack)
-                {
-                    NavigationService.RemoveBackEntry();
-                }
-            }
-            else
-            {
-                // Для обычного менеджера это просто возврат на его страницу товаров/заказов
-                if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
-                NavigationService.GoBack();
-            }
-        }
-
-        private void gotoCatalog_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate(new ManagerPage(_currentUser));
+            if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
+            NavigationService.GoBack();
         }
     }
 }

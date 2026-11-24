@@ -1,7 +1,7 @@
 ﻿<Page Foreground="{DynamicResource TextBrush}" x:Class="Anastasia423WPF.Pages.MainHubPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      Title="Главное меню: Добро пожаловать!">
+      Title="Главное меню">
     <Grid Background="{DynamicResource PageBackgroundBrush}">
 
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">

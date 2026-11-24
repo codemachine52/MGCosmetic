@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Anastasia423WPF.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="700" d:DesignWidth="1100"
-      Title="Каталог">
+      Title="Catalog">
 
     <Grid Background="{DynamicResource PageBackgroundRadialBrush}">
 
@@ -72,6 +72,7 @@
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
                                 <RowDefinition Height="*"/>
                             </Grid.RowDefinitions>
 
@@ -100,9 +101,12 @@
                             </StackPanel>
 
                             <TextBlock Grid.Row="4" Text="{Binding Rating, StringFormat={}⭐ {0}}" FontSize="13" 
-                               HorizontalAlignment="Center" Foreground="#FFB28A13" Margin="0,0,0,10"/>
+                               HorizontalAlignment="Center" Foreground="#FFB28A13" Margin="0,0,0,4"/>
 
-                            <Button Grid.Row="5" Content="В корзину" VerticalAlignment="Bottom" Background="{DynamicResource PrimaryButtonBrush}" 
+                            <TextBlock Grid.Row="5" Text="{Binding StockText}" FontSize="12" 
+                               HorizontalAlignment="Center" Foreground="{DynamicResource MutedTextBrush}" Margin="0,0,0,8"/>
+
+                            <Button Grid.Row="6" Content="В корзину" VerticalAlignment="Bottom" Background="{DynamicResource PrimaryButtonBrush}" 
                             Foreground="White" Height="30" Cursor="Hand" Click="AddToCart_Click"/>
                         </Grid>
                     </Border>
@@ -110,7 +114,7 @@
             </ListView.ItemTemplate>
         </ListView>
 
-        <Button x:Name="Back" Grid.Row="2" Width="150" Height="35" FontSize="20" Background="{DynamicResource AccentButtonBrush}" 
+        <Button x:Name="Back" Grid.Row="2" Width="100" Height="35" FontSize="20" Background="{DynamicResource AccentButtonBrush}" 
                 FontWeight="Thin" Foreground="White" HorizontalAlignment="Left" Margin="30,0,0,20" Click="Back_Click">Назад</Button>
     </Grid>
 </Page>

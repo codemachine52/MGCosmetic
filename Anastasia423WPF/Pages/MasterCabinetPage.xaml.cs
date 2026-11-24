@@ -50,14 +50,10 @@ namespace Anastasia423WPF.Pages
         {
             if ((sender as Button).DataContext is Apointment apt)
             {
-                if (DateTime.Now >= apt.AppointmentDate)
-                {
-                    apt.Status = "Выполнено";
-                    Core.Context.SaveChanges();
-                    MessageBox.Show("Услуга успешно оказана!");
-                    RefreshData();
-                }
-                else MessageBox.Show("Сейчас оказать услугу нельзя! Запись стоит позже.");
+                apt.Status = "Выполнено";
+                Core.Context.SaveChanges();
+                MessageBox.Show("Услуга успешно оказана!");
+                RefreshData();
             }
         }
 

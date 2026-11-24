@@ -35,6 +35,7 @@
 
                 <TextBlock Text="{Binding Manufacturer.Name, StringFormat='Производитель: {0}'}" FontSize="16" Foreground="{DynamicResource SecondaryTextBrush}"/>
                 <TextBlock Text="{Binding Rating, StringFormat='Рейтинг: ⭐ {0}'}" FontSize="16" Margin="0,5" Foreground="#FFB28A13"/>
+                <TextBlock Text="{Binding StockText}" FontSize="16" Foreground="{DynamicResource SecondaryTextBrush}"/>
 
                 <StackPanel Orientation="Horizontal" Margin="0,15,0,0">
                     <TextBlock Text="{Binding Price, StringFormat={}{0:N0} ₽}" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource HeadingTextBrush}"/>

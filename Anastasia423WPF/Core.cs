@@ -8,6 +8,6 @@ namespace Anastasia423WPF
 {
     internal class Core
     {
-        public static MG_CosmeticEntities Context = new MG_CosmeticEntities();
+        public static MG_CosmEntities Context = new MG_CosmEntities();
     }
 }

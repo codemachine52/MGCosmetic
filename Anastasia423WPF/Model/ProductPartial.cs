@@ -17,5 +17,6 @@ namespace Anastasia423WPF
         }
         public int CountProd { get; set; } = 1;
         public decimal PriceWithDiscount => Price * (1 - (decimal)Discount / 100);
+        public string StockText => Quantity > 0 ? $"В наличии: {Quantity} шт." : "Нет в наличии";
     }
 }
