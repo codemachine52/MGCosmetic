@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using Anastasia423WPF.Windows;
+using System.Data.Entity;
 
 namespace Anastasia423WPF.Pages
 {
@@ -25,17 +26,32 @@ namespace Anastasia423WPF.Pages
 
         private void LoadData()
         {
-            // История заказов товаров
-            OrdersList.ItemsSource = Core.Context.Order
-                .Where(o => o.ClientID == _currentUser.ID)
-                .OrderByDescending(o => o.OrderDate)
-                .ToList();
+            if (_currentUser.RoleID == 1)
+            {
+                OrderHistoryText.Visibility = Visibility.Visible;
+                OrdersList.Visibility = Visibility.Visible;
+                AppointmentText.Visibility = Visibility.Visible;    
+                AppointmentsList.Visibility = Visibility.Visible;
+                // История заказов товаров
+                OrdersList.ItemsSource = Core.Context.Order
+                    .Where(o => o.ClientID == _currentUser.ID)
+                    .OrderByDescending(o => o.OrderDate)
+                    .ToList();
 
-            // История записей на услуги
-            AppointmentsList.ItemsSource = Core.Context.Apointment
-                .Where(a => a.ClientID == _currentUser.ID)
-                .OrderByDescending(a => a.AppointmentDate)
-                .ToList();
+                // История записей на услуги
+                AppointmentsList.ItemsSource = Core.Context.Apointment
+                    .Where(a => a.ClientID == _currentUser.ID)
+                    .OrderByDescending(a => a.AppointmentDate)
+                    .ToList();
+            }
+            if (_currentUser.RoleID == 2) 
+                {
+                HistoryAppointmentText.Visibility = Visibility.Visible;
+                HistoryAppointmentList.Visibility = Visibility.Visible;
+                ButtonBack.Content = "Вернуться к записям";
+                //история выполненных услуг мастера
+                HistoryAppointmentList.ItemsSource = Core.Context.Apointment.Where(a => a.MasterID == _currentUser.ID && a.Status.Equals("Выполнено")).ToList();
+                }
         }
 
         private void OrdersList_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -65,7 +81,14 @@ namespace Anastasia423WPF.Pages
         private void Back_Click(object sender, RoutedEventArgs e)
         {
             if (!ConfirmationHelper.ConfirmBack(Window.GetWindow(this))) return;
+            if (_currentUser.RoleID == 1)
+            { 
             NavigationService.Navigate(new Catalog(_currentUser));
+            }
+            if (_currentUser.RoleID == 2)
+            {
+                NavigationService.Navigate(new MasterCabinetPage(_currentUser));
+            }
         }
     }
 }

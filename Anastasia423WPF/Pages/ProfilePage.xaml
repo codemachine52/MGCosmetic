@@ -27,8 +27,8 @@
                     </Grid>
                 </Border>
 
-                <TextBlock x:Name="OrderHistoryText" Text="История заказов" FontSize="20" FontWeight="Bold" Margin="0,10" Foreground="{DynamicResource PrimaryTextBrush}"/>
-                <ListView x:Name="OrdersList" Height="250" Background="Transparent" BorderThickness="0" MouseDoubleClick="OrdersList_MouseDoubleClick">
+                <TextBlock x:Name="OrderHistoryText" Text="История заказов" FontSize="20" FontWeight="Bold" Margin="0,10" Foreground="{DynamicResource PrimaryTextBrush}" Visibility="Collapsed"/>
+                <ListView x:Name="OrdersList" Height="250" Background="Transparent" BorderThickness="0" MouseDoubleClick="OrdersList_MouseDoubleClick" Visibility="Collapsed">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Background="{DynamicResource CardBackgroundBrush}" TextElement.Foreground="{DynamicResource TextBrush}" CornerRadius="10" Margin="0,5" Padding="15">
@@ -48,8 +48,8 @@
                     </ListView.ItemTemplate>
                 </ListView>
 
-                <TextBlock Text="Записи на услуги" FontSize="20" FontWeight="Bold" Margin="0,20,0,10" Foreground="{DynamicResource PrimaryTextBrush}"/>
-                <ListView x:Name="AppointmentsList" Height="250" Background="Transparent" BorderThickness="0" MouseDoubleClick="AppointmentsList_MouseDoubleClick">
+                <TextBlock x:Name="AppointmentText" Text="Записи на услуги" FontSize="20" FontWeight="Bold" Margin="0,20,0,10" Foreground="{DynamicResource PrimaryTextBrush}" Visibility="Collapsed"/>
+                <ListView x:Name="AppointmentsList" Height="250" Background="Transparent" BorderThickness="0" MouseDoubleClick="AppointmentsList_MouseDoubleClick" Visibility="Collapsed">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Border Background="{DynamicResource CardBackgroundBrush}" TextElement.Foreground="{DynamicResource TextBrush}" CornerRadius="10" Margin="0,5" Padding="15">
@@ -65,8 +65,22 @@
                         </DataTemplate>
                     </ListView.ItemTemplate>
                 </ListView>
-
-                <Button Content="Вернуться в каталог" Click="Back_Click" Margin="0,20,0,20" Height="40" Background="{DynamicResource PrimaryButtonBrush}" Foreground="White"/>
+                <TextBlock x:Name="HistoryAppointmentText" Text="История оказанных услуг" Visibility="Collapsed"></TextBlock>
+                <ListView x:Name="HistoryAppointmentList" Background="Transparent" BorderThickness="0" Visibility="Collapsed">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{DynamicResource CardBackgroundBrush}" TextElement.Foreground="{DynamicResource TextBrush}" CornerRadius="10" Margin="0,5" Padding="15">
+                                <Grid>
+                                    <StackPanel>
+                                        <TextBlock Text="{Binding Service.Name}"></TextBlock>
+                                        <TextBlock Text="{Binding Service.Price}"></TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView> 
+                <Button x:Name="ButtonBack" Content="Вернуться в каталог" Click="Back_Click" Margin="0,20,0,20" Height="40" Background="{DynamicResource PrimaryButtonBrush}" Foreground="White"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

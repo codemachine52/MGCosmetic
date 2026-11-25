@@ -73,5 +73,10 @@ namespace Anastasia423WPF.Pages
             if (!ConfirmationHelper.ConfirmLogout(Window.GetWindow(this))) return;
             NavigationService.Navigate(new AuthPage());
         }
+
+        private void ManagerProfilBut_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new ProfilePage(_master));
+        }
     }
 }
