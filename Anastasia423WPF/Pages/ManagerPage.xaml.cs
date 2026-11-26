@@ -190,5 +190,7 @@ namespace Anastasia423WPF.Pages
             if (!ConfirmationHelper.ConfirmLogout(Window.GetWindow(this))) return;
             NavigationService.Navigate(new AuthPage(_currentUser));
         }
+
+        
     }
 }

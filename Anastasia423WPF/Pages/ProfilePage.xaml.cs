@@ -26,7 +26,7 @@ namespace Anastasia423WPF.Pages
 
         private void LoadData()
         {
-            if (_currentUser.RoleID == 1)
+            if (_currentUser.RoleID == 1 || (_currentUser.RoleID == 3 || _currentUser.RoleID == 4))
             {
                 OrderHistoryText.Visibility = Visibility.Visible;
                 OrdersList.Visibility = Visibility.Visible;

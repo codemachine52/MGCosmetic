@@ -74,7 +74,7 @@ namespace Anastasia423WPF.Pages
             NavigationService.Navigate(new AuthPage());
         }
 
-        private void ManagerProfilBut_Click(object sender, RoutedEventArgs e)
+        private void MasterProfilBut_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new ProfilePage(_master));
         }

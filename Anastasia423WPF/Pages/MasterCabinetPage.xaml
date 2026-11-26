@@ -5,7 +5,7 @@
 
     <Grid Background="{DynamicResource MasterBackgroundBrush}">
         <StackPanel Margin="20">
-            <Button x:Name="ManagerProfilBut" HorizontalAlignment="Right" Margin="50,0,0,0" Content="Профиль" Background="DarkRed" Foreground="White" Click="ManagerProfilBut_Click"></Button>
+            <Button x:Name="MasterProfilBut" HorizontalAlignment="Right" Margin="50,0,0,0" Content="Профиль" Background="DarkRed" Foreground="White" Click="ManagerProfilBut_Click"></Button>
 
             <TextBlock Text="МОЙ ГРАФИК РАБОТЫ" FontSize="24" FontWeight="Bold" HorizontalAlignment="Center" Margin="0,0,0,10"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,20">
